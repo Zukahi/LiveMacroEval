@@ -273,6 +273,16 @@ def forecast_evidence_once(job, model_name, now_local):
     client_kwargs = {}
     if model_name == "claude-code-agent":
         client_kwargs["agent_instructions"] = AGENT_INSTRUCTIONS
+    elif model_name == "claude-code-agent-pit":
+        # This client carries its own output contract; it needs the cutoff instead.
+        if not job.get("as_of"):
+            raise ValueError(
+                f"job {job.get('id')!r} uses claude-code-agent-pit but has no as_of cutoff"
+            )
+        client_kwargs["as_of"] = job["as_of"]
+        if job.get("search_provider"):
+            client_kwargs["provider"] = job["search_provider"]
+        client_kwargs["allow_same_day"] = bool(job.get("allow_same_day", False))
 
     logger.info(
         "Evidence run: job=%s model=%s indicator=%s target=%s consensus=%s as_of=%s",

@@ -9,9 +9,29 @@
     "previous": 55.6,
     "actual": 54.6,
     "min_arguments": 3,
-    "models": ["claude-code-agent"],
+    "models": [
+      "claude-code-agent"
+    ],
     "status": "manual",
     "notes": "Primary backtest. Released 2026-09-01 10:00 ET; after the model's training cutoff, so the answer cannot be recalled from training. Consensus missed to the high side (actual 54.6 vs consensus 55.2), which makes it a real test of whether the evidence search finds the downside case. Ground truth: ISM Report On Business via PR Newswire; consensus from the Investing.com US calendar."
+  },
+  {
+    "id": "ism_mfg_2026-08_pit",
+    "indicator": "ism_manufacturing_index",
+    "target_period": "2026-08",
+    "release_date": "2026-09-01",
+    "as_of": "2026-09-01T09:59:00-04:00",
+    "consensus": 55.2,
+    "previous": 55.6,
+    "actual": 54.6,
+    "min_arguments": 3,
+    "models": [
+      "claude-code-agent-pit"
+    ],
+    "search_provider": null,
+    "allow_same_day": false,
+    "status": "manual",
+    "notes": "Same release as ism_mfg_2026-08_backtest, run through the point-in-time client instead: built-in WebSearch/WebFetch are denied and the agent's only tools are date-filtered. Requires EXA_API_KEY (preferred) or TAVILY_API_KEY. Run both and compare - the unfiltered run is the control, this one is the clean observation."
   },
   {
     "id": "ism_mfg_2026-04_backtest",
@@ -23,7 +43,9 @@
     "previous": 52.7,
     "actual": 52.7,
     "min_arguments": 3,
-    "models": ["claude-code-agent"],
+    "models": [
+      "claude-code-agent"
+    ],
     "status": "manual",
     "notes": "Secondary backtest, overlapping the model's training window - treat a good score here as contaminated until the leakage audit is clean. Kept because it overlaps the repo's existing 2026-04 nowcast data, so evidence mode and the original mode can be compared on the same release."
   }

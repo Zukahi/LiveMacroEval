@@ -20,5 +20,11 @@ def get_client(model_name):
         from .claude_code_agent import generate
         return generate
 
+    elif model_name == "claude-code-agent-pit":
+        # Same agent, but the built-in web tools are denied and its only search is
+        # date-filtered to the run's point-in-time cutoff. Requires as_of.
+        from .claude_code_agent_pit import generate
+        return generate
+
     else:
         raise ValueError(f"Unknown model: {model_name}")

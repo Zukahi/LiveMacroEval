@@ -47,8 +47,45 @@ handled by **detection, not prevention**:
   `after_cutoff`.
 
 A run with `leak_count > 0` is not a valid backtest observation — discard or re-run it.
-A hard pre-cutoff search layer (Exa or Tavily, date-filtered) is the next module and is
-what would turn detection into prevention.
+
+### Prevention: point-in-time search
+
+`search_pit.py` plus the `claude-code-agent-pit` client close the hole. In a PIT run the
+built-in `WebSearch` and `WebFetch` are **denied**, and the agent's only window on the
+world is two in-process MCP tools, `mcp__pit__search` and `mcp__pit__get_contents`, that
+route through a date-filtered provider. The agent cannot read the answer because the tool
+that would have to hand it over refuses.
+
+Two redundant guards, because provider metadata is wrong often enough to matter:
+
+1. the provider's own filter (Exa `endPublishedDate`, Tavily `end_date`);
+2. a local re-check of every returned document, which drops anything dated on or after
+   the cutoff — and anything undated, since an undated document cannot be proven to
+   predate it.
+
+The cutoff is bound per run by the client, not passed as a tool argument, so the agent
+has no way to widen its own window. Attempts to reach a non-PIT tool are denied by a
+`PreToolUse` hook and counted in the log.
+
+Same-day documents are excluded by default. A release at 10:00 ET and a preview published
+that morning often carry a date-only timestamp, so they are indistinguishable; losing a
+few legitimate previews is cheaper than silently importing the answer. Set
+`allow_same_day: true` on a job to relax the date rule — the clock rule still holds, so a
+document timestamped after the cutoff stays blocked either way.
+
+Setup:
+
+```bash
+export EXA_API_KEY=...      # preferred: real endPublishedDate filtering
+export TAVILY_API_KEY=...   # fallback: weaker date support, local filter carries more
+export PIT_SEARCH_PROVIDER=exa   # optional, to force one
+```
+
+Without a key the layer raises rather than falling back to unfiltered search — degrading
+quietly would produce backtests that look clean and are not.
+
+Run the same release both ways and compare: `ism_mfg_2026-08_backtest` (unfiltered, the
+control) against `ism_mfg_2026-08_pit` (clean observation).
 
 ## Usage
 
@@ -57,7 +94,8 @@ cd LiveMacro/backend
 python run_evidence_once.py --list
 python run_evidence_once.py --job ism_mfg_2026-08_backtest --dry-run   # print the prompt, call nothing
 python run_evidence_once.py --job ism_mfg_2026-08_backtest
-python test_evidence_parser.py                                          # 16 offline checks, no model calls
+python test_evidence_parser.py   # 16 offline checks: parser + leakage audit
+python test_search_pit.py        # 14 offline checks: date filter + tool denial (HTTP stubbed)
 ```
 
 Jobs live in `config/jobs_evidence.json`. A job needs `id`, `indicator` (any key from
