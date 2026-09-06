@@ -26,6 +26,7 @@ Environment:
 
 import datetime as dt
 import os
+import re
 from urllib.parse import urlparse
 
 import requests
@@ -86,6 +87,124 @@ def parse_published(value):
             parsed = parsed.replace(tzinfo=dt.timezone.utc)
         return parsed.astimezone(dt.timezone.utc)
     return None
+
+
+# ---------- date recovery ----------
+# Many primary sources carry no machine-readable publication date: the S&P Global PMI
+# press releases sit at GUID URLs, and ISM's own report pages expose nothing usable.
+# Dropping them wholesale biases the evidence toward whatever the search index happens
+# to have tagged, so before rejecting an undated document we try to recover its date
+# from the URL and then from its dateline.
+#
+# Recovery is deliberately pessimistic: when several dates are plausible we take the
+# LATEST one, so a mis-read can only ever block a document, never admit one it should
+# have excluded.
+
+_URL_DATE_PATTERNS = [
+    re.compile(r"/(20\d{2})[/-](\d{1,2})[/-](\d{1,2})(?:[/-]|$)"),
+    re.compile(r"[?&](?:date|published)=(20\d{2})-(\d{1,2})-(\d{1,2})"),
+    re.compile(r"[_-](20\d{2})(\d{2})(\d{2})[_.-]"),
+]
+
+_MONTHS = {
+    m: i
+    for i, name in enumerate(
+        ["january", "february", "march", "april", "may", "june",
+         "july", "august", "september", "october", "november", "december"],
+        start=1,
+    )
+    for m in (name, name[:3])
+}
+
+_TEXT_DATE_PATTERNS = [
+    re.compile(r"\b([A-Z][a-z]{2,8})\.?\s+(\d{1,2}),\s*(20\d{2})\b"),   # August 21, 2026
+    re.compile(r"\b(\d{1,2})\s+([A-Z][a-z]{2,8})\.?\s+(20\d{2})\b"),     # 21 August 2026
+    re.compile(r"\b(20\d{2})-(\d{2})-(\d{2})\b"),                        # 2026-08-21
+]
+
+# Only trust dateline recovery on publishers whose pages actually carry one. An
+# arbitrary page's first date is as likely to be something it mentions as its own.
+DATELINE_DOMAINS = (
+    "spglobal.com",
+    "ismworld.org",
+    "prnewswire.com",
+    "businesswire.com",
+    "globenewswire.com",
+    "federalreserve.gov",
+    "newyorkfed.org",
+    "philadelphiafed.org",
+    "dallasfed.org",
+    "richmondfed.org",
+    "kansascityfed.org",
+    "chicagofed.org",
+    "bls.gov",
+    "bea.gov",
+    "census.gov",
+)
+
+
+def _domain_allows_dateline(url):
+    host = (urlparse(url).hostname or "").lower()
+    return any(host == d or host.endswith("." + d) for d in DATELINE_DOMAINS)
+
+
+def _date_from_url(url):
+    for pattern in _URL_DATE_PATTERNS:
+        match = pattern.search(url or "")
+        if not match:
+            continue
+        year, month, day = (int(g) for g in match.groups())
+        try:
+            return dt.datetime(year, month, day, tzinfo=dt.timezone.utc)
+        except ValueError:
+            continue
+    return None
+
+
+def _date_from_text(text, scan_chars=2500):
+    """
+    Scan the head of a document for datelines and return the LATEST one found.
+
+    Latest, not first: a press release often names the month it reports on ("August
+    2026 data") before its own dateline, and taking the earliest would understate the
+    publication date — the direction that wrongly admits documents.
+    """
+    if not text:
+        return None
+    head = text[:scan_chars]
+    found = []
+    for pattern in _TEXT_DATE_PATTERNS:
+        for match in pattern.finditer(head):
+            groups = match.groups()
+            try:
+                if groups[0].isdigit() and len(groups[0]) == 4:
+                    year, month, day = int(groups[0]), int(groups[1]), int(groups[2])
+                elif groups[0].isdigit():
+                    day, month, year = int(groups[0]), _MONTHS.get(groups[1].lower(), 0), int(groups[2])
+                else:
+                    month, day, year = _MONTHS.get(groups[0].lower(), 0), int(groups[1]), int(groups[2])
+                if month:
+                    found.append(dt.datetime(year, month, day, tzinfo=dt.timezone.utc))
+            except (ValueError, IndexError):
+                continue
+    return max(found) if found else None
+
+
+def resolve_published(published, url, text):
+    """
+    Best available publication date, and where it came from.
+    Returns (datetime | None, source: 'provider' | 'url' | 'dateline' | 'none').
+    """
+    if published is not None:
+        return published, "provider"
+    from_url = _date_from_url(url)
+    if from_url is not None:
+        return from_url, "url"
+    if _domain_allows_dateline(url):
+        from_text = _date_from_text(text)
+        if from_text is not None:
+            return from_text, "dateline"
+    return None, "none"
 
 
 def _is_admissible(published, cutoff, allow_same_day):
@@ -217,7 +336,9 @@ def pit_search(
 
     admitted, rejected = [], []
     for item in raw_results:
-        published = parse_published(item.get("published_raw"))
+        published, date_source = resolve_published(
+            parse_published(item.get("published_raw")), item["url"], item["text"]
+        )
         ok, reason = _is_admissible(published, cutoff, allow_same_day)
         if not ok and published is None and not require_date:
             ok, reason = True, ""
@@ -225,6 +346,7 @@ def pit_search(
             "title": item["title"],
             "url": item["url"],
             "published_date": published.date().isoformat() if published else None,
+            "date_source": date_source,
             "author": item["author"],
             "text": item["text"],
         }
@@ -286,7 +408,7 @@ def pit_get_contents(url, as_of, provider=None, max_characters=6000, allow_same_
         published_raw = item.get("published_date")
         text, title = (item.get("raw_content") or "")[:max_characters], ""
 
-    published = parse_published(published_raw)
+    published, date_source = resolve_published(parse_published(published_raw), url, text)
     ok, reason = _is_admissible(published, cutoff, allow_same_day)
     if not ok:
         logger.warning("PIT contents BLOCKED for %s: %s", url, reason)
@@ -295,8 +417,12 @@ def pit_get_contents(url, as_of, provider=None, max_characters=6000, allow_same_
             "blocked": True,
             "reason": reason,
             "published_date": published.date().isoformat() if published else None,
+            "date_source": date_source,
             "text": "",
         }
+
+    if date_source != "provider":
+        logger.info("PIT contents: recovered date %s for %s via %s", published.date(), url, date_source)
 
     return {
         "url": url,
@@ -304,5 +430,6 @@ def pit_get_contents(url, as_of, provider=None, max_characters=6000, allow_same_
         "reason": "",
         "title": title,
         "published_date": published.date().isoformat(),
+        "date_source": date_source,
         "text": text[:max_characters],
     }

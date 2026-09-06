@@ -12,7 +12,16 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 import search_pit
-from search_pit import PitSearchError, parse_cutoff, parse_published, pit_get_contents, pit_search
+from search_pit import (
+    PitSearchError,
+    _date_from_text,
+    _date_from_url,
+    parse_cutoff,
+    parse_published,
+    pit_get_contents,
+    pit_search,
+    resolve_published,
+)
 
 CUTOFF = "2026-09-01T09:59:00-04:00"  # 13:59 UTC
 
@@ -226,6 +235,70 @@ def t_contents_allows_pre_cutoff():
             result = pit_get_contents("https://ok.example/a", as_of=CUTOFF)
         assert result["blocked"] is False
         assert "53.2" in result["text"]
+    finally:
+        _restore(saved)
+
+
+# ---------- date recovery ----------
+def t_date_from_url_patterns():
+    assert _date_from_url("https://x.example/2026/08/21/story").date().isoformat() == "2026-08-21"
+    assert _date_from_url("https://x.example/news?date=2026-08-21").date().isoformat() == "2026-08-21"
+    assert _date_from_url("https://x.example/report_20260821_final.html").date().isoformat() == "2026-08-21"
+    assert _date_from_url("https://x.example/Public/PressRelease/552d682e") is None
+    assert _date_from_url("https://x.example/2026/13/45/impossible") is None
+
+
+def t_date_from_text_takes_latest():
+    """A press release names the month it covers before its own dateline."""
+    text = "August 2026 data. NEW YORK, August 21, 2026 - S&P Global released..."
+    assert _date_from_text(text).date().isoformat() == "2026-08-21"
+    assert _date_from_text("21 August 2026 dateline").date().isoformat() == "2026-08-21"
+    assert _date_from_text("published 2026-08-21 by us").date().isoformat() == "2026-08-21"
+    assert _date_from_text("no dates at all here") is None
+
+
+def t_dateline_recovery_only_for_known_publishers():
+    text = "NEW YORK, August 21, 2026 - the report says..."
+    known, source = resolve_published(None, "https://www.pmi.spglobal.com/Public/x/GUID", text)
+    assert source == "dateline" and known.date().isoformat() == "2026-08-21"
+
+    unknown, source = resolve_published(None, "https://randomblog.example/post", text)
+    assert unknown is None and source == "none", "an arbitrary page's first date is not its dateline"
+
+
+def t_provider_date_wins_over_recovery():
+    provider = parse_published("2026-08-10")
+    got, source = resolve_published(provider, "https://x.example/2026/08/21/story", "August 25, 2026")
+    assert source == "provider" and got.date().isoformat() == "2026-08-10"
+
+
+def t_recovery_cannot_admit_a_post_cutoff_document():
+    """Recovery takes the latest plausible date, so a mis-read blocks rather than admits."""
+    saved = _with_env(EXA_API_KEY="k", PIT_SEARCH_PROVIDER="exa")
+    try:
+        payload = _exa_payload([
+            {"url": "https://www.pmi.spglobal.com/Public/x/GUID", "publishedDate": None, "author": "",
+             "title": "release", "text": "Covering August 2026. NEW YORK, September 2, 2026 - results..."}
+        ])
+        with StubPost(payload):
+            result = pit_search("q", as_of=CUTOFF)
+        assert result["counts"]["admitted"] == 0, result["counts"]
+        assert "2026-09-02" in result["rejected"][0]["reason"]
+    finally:
+        _restore(saved)
+
+
+def t_recovery_rescues_undated_primary_source():
+    saved = _with_env(EXA_API_KEY="k", PIT_SEARCH_PROVIDER="exa")
+    try:
+        payload = _exa_payload([
+            {"url": "https://www.pmi.spglobal.com/Public/x/GUID", "publishedDate": None, "author": "",
+             "title": "Flash PMI", "text": "NEW YORK, August 21, 2026 - flash manufacturing PMI fell to 53.2."}
+        ])
+        with StubPost(payload):
+            result = pit_search("q", as_of=CUTOFF)
+        assert result["counts"]["admitted"] == 1, result["counts"]
+        assert result["results"][0]["date_source"] == "dateline"
     finally:
         _restore(saved)
 
