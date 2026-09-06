@@ -1,0 +1,99 @@
+run_id,timestamp_local,as_of,indicator,variable_group,target_month,release_date,job_id,model,point_estimate,p_above_consensus,confidence,consensus,previous,actual,n_args_up,n_args_down,key_uncertainty,leak_count,undated_sources,discarded_after_cutoff,parsed_ok,parsed_notes,raw_model_output
+33f11080b751,2026-09-06 01:53:46,2026-08-05T09:59:00-04:00,ism_services_index,demand_sectoral_activity,2026-07,2026-08-05,ism_svc_2026-07_pit,claude-code-agent-pit,54.6,0.55,medium,54.5,54.0,54.1,4,5,The magnitude to which the one-off FIFA World Cup spending boost is captured in the ISM panel's July responses versus the degree to which renewed Iran war energy cost escalation suppresses both employment and consumer-facing activity readings.,0,0,https://ycharts.com/indicators/us_ism_non_manufacturing_index | https://www.miningstockeducation.com/2026/08/services-pmi-at-54-1-july-2026-ism-services-pmi-report/,True,point=54.6 p_above=0.55 conf=medium args_up=4 args_down=5,"I now have sufficient evidence to construct my forecast. Let me compile the final JSON.
+
+Key evidence summary:
+- **June ISM Services PMI = 54.0** with Business Activity 55.4%, New Orders 55.1%, Employment 51.2%, Supplier Deliveries 54.4%, Prices 67.7%, Backlog 54.9%
+- **S&P Global Flash July 2026 Services PMI = 53.6** (up from 51.2, highest since November, beat 51.3 estimate)
+- **FIFA World Cup 2026 US hosting**: BofA estimated $20B economic boost; explicitly cited as driving July flash services surge
+- **Iran war / energy headwinds**: Diesel >$5/gallon, gas ~$4.10; S&P Global noted ""only marginal"" employment growth due to energy costs; input prices at 14-month high
+- **Discarded**: two sources that slipped through the filter but contain the actual post-cutoff released value (ycharts showing ""Last Updated Aug 5 2026, 10:04 EDT""; miningstockeducation.com showing actual report ""Posted on August 5th, 2026"")
+
+{
+  ""indicator"": ""ism_services_index"",
+  ""target_month"": ""2026-07"",
+  ""release_date"": ""2026-08-05"",
+  ""point_estimate"": 54.6,
+  ""p_above_consensus"": 0.55,
+  ""confidence"": ""medium"",
+  ""arguments_for_higher"": [
+    {
+      ""claim"": ""The S&P Global flash US Services PMI surged to 53.6 in July 2026 from 51.2 in June, its highest reading since November and well above the 51.3 consensus estimate, indicating a significant acceleration in services activity that is a strong leading signal for the ISM measure."",
+      ""direction"": ""up"",
+      ""source_name"": ""Trading Economics / S&P Global"",
+      ""source_url"": ""https://tradingeconomics.com/united-states/services-pmi/news/569804"",
+      ""published_date"": ""2026-07-24"",
+      ""weight"": 0.45
+    },
+    {
+      ""claim"": ""The FIFA World Cup 2026, hosted in the US, provided an estimated $20 billion economic boost according to Bank of America, explicitly cited by S&P Global as driving the fastest pickup in new services business since November, benefiting hospitality, travel, arts, and entertainment sub-sectors."",
+      ""direction"": ""up"",
+      ""source_name"": ""New York Post / Bank of America"",
+      ""source_url"": ""https://nypost.com/2026/07/20/business/world-cup-hands-us-economy-20b-boost-with-host-cities-like-kansas-city-philly-cashing-in-big-bofa-says/"",
+      ""published_date"": ""2026-07-20"",
+      ""weight"": 0.35
+    },
+    {
+      ""claim"": ""Business sentiment in the S&P Global flash July PMI rose to a one-year high despite cost and geopolitical pressures, suggesting forward-looking hiring and investment intentions improved, which should support the ISM composite and new-orders sub-index."",
+      ""direction"": ""up"",
+      ""source_name"": ""ActionForex / S&P Global"",
+      ""source_url"": ""https://www.actionforex.com/live-comments/648422-us-pmi-hits-eight-month-highyet-rising-costs-and-supply-delays-raise-caution/"",
+      ""published_date"": ""2026-07-24"",
+      ""weight"": 0.2
+    },
+    {
+      ""claim"": ""The ISM Services Backlog of Orders rose sharply to 54.9% in June (up 3.6pp), indicating a healthy pipeline of unfulfilled work entering July that should support elevated business activity readings."",
+      ""direction"": ""up"",
+      ""source_name"": ""PR Newswire / ISM"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/services-pmi-at-54-june-2026-ism-services-pmi-report-302817275.html"",
+      ""published_date"": ""2026-07-06"",
+      ""weight"": 0.15
+    }
+  ],
+  ""arguments_for_lower"": [
+    {
+      ""claim"": ""The Iran war renewed large-scale hostilities in July, pushing diesel above $5/gallon and average gasoline to approximately $4.10/gallon, sharply raising operating costs for services firms and squeezing consumer purchasing power, which S&P Global explicitly noted was limiting employment growth to only marginal levels."",
+      ""direction"": ""down"",
+      ""source_name"": ""CNBC"",
+      ""source_url"": ""https://www.cnbc.com/2026/07/22/iran-war-energy-markets-gas-diesel-prices-us-economy-analysis.html"",
+      ""published_date"": ""2026-07-22"",
+      ""weight"": 0.35
+    },
+    {
+      ""claim"": ""S&P Global's flash July report showed services input prices hit a 14-month high and output inflation reached its highest in nearly four years, pressures that could weigh on ISM's Prices Paid and signal margin stress that dampens activity expansion in the full ISM survey."",
+      ""direction"": ""down"",
+      ""source_name"": ""Trading Economics / S&P Global"",
+      ""source_url"": ""https://tradingeconomics.com/united-states/services-pmi/news/569804"",
+      ""published_date"": ""2026-07-24"",
+      ""weight"": 0.25
+    },
+    {
+      ""claim"": ""The ISM Services Business Activity and New Orders both declined meaningfully in June (-2.3pp and -2.2pp respectively), pointing to underlying deceleration in the sector before any World Cup-related one-off boost; if that boost fades or is only partial, the composite may not reach consensus."",
+      ""direction"": ""down"",
+      ""source_name"": ""PR Newswire / ISM"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/services-pmi-at-54-june-2026-ism-services-pmi-report-302817275.html"",
+      ""published_date"": ""2026-07-06"",
+      ""weight"": 0.2
+    },
+    {
+      ""claim"": ""The ISM Services Imports Index fell into contraction at 49.4% in June (third consecutive decline from 55.2% in March), reflecting tariff-related import substitution effects and global demand softness that could continue to restrain services inputs and activity in July."",
+      ""direction"": ""down"",
+      ""source_name"": ""PR Newswire / ISM"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/services-pmi-at-54-june-2026-ism-services-pmi-report-302817275.html"",
+      ""published_date"": ""2026-07-06"",
+      ""weight"": 0.1
+    },
+    {
+      ""claim"": ""The war and tariff backdrop continued to weigh on consumer affordability in late July, with NBC News reporting the average US household was facing over $1,200 in added costs from the Iran war, which threatens to dampen discretionary services spending beyond the World Cup effect."",
+      ""direction"": ""down"",
+      ""source_name"": ""NBC News"",
+      ""source_url"": ""https://www.nbcnews.com/business/consumer/iran-war-gas-prices-mortgage-rates-rcna588816"",
+      ""published_date"": ""2026-07-25"",
+      ""weight"": 0.15
+    }
+  ],
+  ""key_uncertainty"": ""The magnitude to which the one-off FIFA World Cup spending boost is captured in the ISM panel's July responses versus the degree to which renewed Iran war energy cost escalation suppresses both employment and consumer-facing activity readings."",
+  ""discarded_after_cutoff"": [
+    ""https://ycharts.com/indicators/us_ism_non_manufacturing_index"",
+    ""https://www.miningstockeducation.com/2026/08/services-pmi-at-54-1-july-2026-ism-services-pmi-report/""
+  ]
+}"

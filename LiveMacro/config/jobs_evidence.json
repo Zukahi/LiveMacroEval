@@ -31,7 +31,8 @@
     "search_provider": null,
     "allow_same_day": false,
     "status": "manual",
-    "notes": "Same release as ism_mfg_2026-08_backtest, run through the point-in-time client instead: built-in WebSearch/WebFetch are denied and the agent's only tools are date-filtered. Requires EXA_API_KEY (preferred) or TAVILY_API_KEY. Run both and compare - the unfiltered run is the control, this one is the clean observation."
+    "notes": "Same release as ism_mfg_2026-08_backtest, run through the point-in-time client instead: built-in WebSearch/WebFetch are denied and the agent's only tools are date-filtered. Requires EXA_API_KEY (preferred) or TAVILY_API_KEY. Run both and compare - the unfiltered run is the control, this one is the clean observation.",
+    "series": "ism_clean_2026"
   },
   {
     "id": "ism_mfg_2026-04_backtest",
@@ -48,5 +49,138 @@
     ],
     "status": "manual",
     "notes": "Secondary backtest, overlapping the model's training window - treat a good score here as contaminated until the leakage audit is clean. Kept because it overlaps the repo's existing 2026-04 nowcast data, so evidence mode and the original mode can be compared on the same release."
+  },
+  {
+    "id": "ism_mfg_2026-05_pit",
+    "series": "ism_clean_2026",
+    "indicator": "ism_manufacturing_index",
+    "target_period": "2026-05",
+    "release_date": "2026-06-01",
+    "as_of": "2026-06-01T09:59:00-04:00",
+    "consensus": 53.0,
+    "previous": 52.7,
+    "actual": 54.0,
+    "min_arguments": 3,
+    "models": [
+      "claude-code-agent-pit"
+    ],
+    "search_provider": null,
+    "allow_same_day": false,
+    "status": "manual",
+    "notes": "Released after the model's training cutoff, so recall of the answer is not available and the PIT filter is the only thing that needs to hold. Ground truth from the ISM Report On Business; consensus cross-checked against contemporaneous market write-ups."
+  },
+  {
+    "id": "ism_mfg_2026-06_pit",
+    "series": "ism_clean_2026",
+    "indicator": "ism_manufacturing_index",
+    "target_period": "2026-06",
+    "release_date": "2026-07-01",
+    "as_of": "2026-07-01T09:59:00-04:00",
+    "consensus": 53.8,
+    "previous": 54.0,
+    "actual": 53.3,
+    "min_arguments": 3,
+    "models": [
+      "claude-code-agent-pit"
+    ],
+    "search_provider": null,
+    "allow_same_day": false,
+    "status": "manual",
+    "notes": "Released after the model's training cutoff, so recall of the answer is not available and the PIT filter is the only thing that needs to hold. Ground truth from the ISM Report On Business; consensus cross-checked against contemporaneous market write-ups."
+  },
+  {
+    "id": "ism_mfg_2026-07_pit",
+    "series": "ism_clean_2026",
+    "indicator": "ism_manufacturing_index",
+    "target_period": "2026-07",
+    "release_date": "2026-08-03",
+    "as_of": "2026-08-03T09:59:00-04:00",
+    "consensus": 54.0,
+    "previous": 53.3,
+    "actual": 55.6,
+    "min_arguments": 3,
+    "models": [
+      "claude-code-agent-pit"
+    ],
+    "search_provider": null,
+    "allow_same_day": false,
+    "status": "manual",
+    "notes": "Released after the model's training cutoff, so recall of the answer is not available and the PIT filter is the only thing that needs to hold. Ground truth from the ISM Report On Business; consensus cross-checked against contemporaneous market write-ups."
+  },
+  {
+    "id": "ism_svc_2026-05_pit",
+    "series": "ism_clean_2026",
+    "indicator": "ism_services_index",
+    "target_period": "2026-05",
+    "release_date": "2026-06-03",
+    "as_of": "2026-06-03T09:59:00-04:00",
+    "consensus": 53.7,
+    "previous": 53.6,
+    "actual": 54.5,
+    "min_arguments": 3,
+    "models": [
+      "claude-code-agent-pit"
+    ],
+    "search_provider": null,
+    "allow_same_day": false,
+    "status": "manual",
+    "notes": "Released after the model's training cutoff, so recall of the answer is not available and the PIT filter is the only thing that needs to hold. Ground truth from the ISM Report On Business; consensus cross-checked against contemporaneous market write-ups."
+  },
+  {
+    "id": "ism_svc_2026-06_pit",
+    "series": "ism_clean_2026",
+    "indicator": "ism_services_index",
+    "target_period": "2026-06",
+    "release_date": "2026-07-06",
+    "as_of": "2026-07-06T09:59:00-04:00",
+    "consensus": 54.0,
+    "previous": 54.5,
+    "actual": 54.0,
+    "min_arguments": 3,
+    "models": [
+      "claude-code-agent-pit"
+    ],
+    "search_provider": null,
+    "allow_same_day": false,
+    "status": "manual",
+    "notes": "Actual matched consensus exactly. Usable for absolute error; excluded from direction hit-rate, where a tie has no correct side. Released after the model's training cutoff, so recall of the answer is not available and the PIT filter is the only thing that needs to hold. Ground truth from the ISM Report On Business; consensus cross-checked against contemporaneous market write-ups."
+  },
+  {
+    "id": "ism_svc_2026-07_pit",
+    "series": "ism_clean_2026",
+    "indicator": "ism_services_index",
+    "target_period": "2026-07",
+    "release_date": "2026-08-05",
+    "as_of": "2026-08-05T09:59:00-04:00",
+    "consensus": 54.5,
+    "previous": 54.0,
+    "actual": 54.1,
+    "min_arguments": 3,
+    "models": [
+      "claude-code-agent-pit"
+    ],
+    "search_provider": null,
+    "allow_same_day": false,
+    "status": "manual",
+    "notes": "Released after the model's training cutoff, so recall of the answer is not available and the PIT filter is the only thing that needs to hold. Ground truth from the ISM Report On Business; consensus cross-checked against contemporaneous market write-ups."
+  },
+  {
+    "id": "ism_svc_2026-08_pit",
+    "series": "ism_clean_2026",
+    "indicator": "ism_services_index",
+    "target_period": "2026-08",
+    "release_date": "2026-09-03",
+    "as_of": "2026-09-03T09:59:00-04:00",
+    "consensus": 54.3,
+    "previous": 54.1,
+    "actual": 55.4,
+    "min_arguments": 3,
+    "models": [
+      "claude-code-agent-pit"
+    ],
+    "search_provider": null,
+    "allow_same_day": false,
+    "status": "manual",
+    "notes": "Vendor spread on consensus: FXStreet 54.3, investinglive 54.2. Using 54.3; the 0.1 gap does not change the sign of the surprise. Released after the model's training cutoff, so recall of the answer is not available and the PIT filter is the only thing that needs to hold. Ground truth from the ISM Report On Business; consensus cross-checked against contemporaneous market write-ups."
   }
 ]

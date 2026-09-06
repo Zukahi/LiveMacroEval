@@ -158,3 +158,52 @@ Source mix also shifts: the unfiltered agent reached newyorkfed.org and ismworld
 directly, while the filtered agent leaned on aggregators (MarketScreener, Investinglive)
 that happen to sit in Exa's index. That is a difference in what gets cited, not only in
 how much.
+
+## A series: 8 releases, no evidence of skill
+
+`ism_clean_2026` runs eight ISM releases — Manufacturing and Services, target months
+May–August 2026 — through the point-in-time client. Every one was published after the
+model's training cutoff, so recall of the answer is unavailable and the date filter is
+the only thing that has to hold. All eight passed the leakage audit.
+
+```bash
+python run_evidence_series.py --series ism_clean_2026 --skip-existing
+python run_evidence_series.py --series ism_clean_2026 --score-only
+```
+
+| job | consensus | actual | model | model err | consensus err | side |
+|---|---|---|---|---|---|---|
+| mfg 2026-05 | 53.0 | 54.0 | 53.5 | 0.5 | 1.0 | right |
+| mfg 2026-06 | 53.8 | 53.3 | 53.7 | 0.4 | 0.5 | right |
+| mfg 2026-07 | 54.0 | 55.6 | 55.0 | 0.6 | 1.6 | right |
+| mfg 2026-08 | 55.2 | 54.6 | 55.3 | 0.7 | 0.6 | wrong |
+| svc 2026-05 | 53.7 | 54.5 | 53.4 | 1.1 | 0.8 | wrong |
+| svc 2026-06 | 54.0 | 54.0 | 54.2 | 0.2 | 0.0 | tie |
+| svc 2026-07 | 54.5 | 54.1 | 54.6 | 0.5 | 0.4 | wrong |
+| svc 2026-08 | 54.3 | 55.4 | 54.5 | 0.9 | 1.1 | right |
+
+Mean absolute error: **model 0.613, consensus 0.750**. Correct side of consensus on 4 of
+7 (the June services print landed exactly on consensus, where no side is correct).
+
+That headline flatters the model, and the detail withdraws the flattery:
+
+- The model beat consensus on **4 of 8** releases — a coin flip. Sign test p = 1.00.
+- The median difference in absolute error is **0.000**. The mean advantage of 0.137 is
+  carried by a single release: July manufacturing, where consensus missed by 1.6 and the
+  model by 0.6. **Drop that one release and the gap is 0.614 against 0.629** — nothing.
+- The split by indicator runs in opposite directions: manufacturing 3 of 4 with MAE 0.550
+  against 0.925, services 1 of 4 with MAE 0.675 against 0.575. With four observations each,
+  that is as likely to be noise as a real difference between the two surveys.
+
+**The honest reading is that eight releases show no measurable edge over consensus.** What
+they do show is that the pipeline produces clean, sourced, auditable forecasts at a cost of
+roughly two minutes and a dozen searches per release — which is the precondition for a
+measurement, not the measurement itself. Distinguishing a 0.1-point edge from noise at this
+error level needs on the order of a hundred releases, which means widening to the other 22
+variables in `variables.py` and running forward as releases arrive, rather than backfilling
+a benchmark that ends where the training data begins.
+
+One operational note from the run: a query like "ISM services forecast preview August 2026"
+returned 8 results and all 8 were blocked, because previews cluster in the days just before
+a release. The filter is behaving correctly, but it means the agent is systematically
+poorer in exactly the sources a human forecaster would reach for first.

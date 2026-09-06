@@ -1,0 +1,96 @@
+run_id,timestamp_local,as_of,indicator,variable_group,target_month,release_date,job_id,model,point_estimate,p_above_consensus,confidence,consensus,previous,actual,n_args_up,n_args_down,key_uncertainty,leak_count,undated_sources,discarded_after_cutoff,parsed_ok,parsed_notes,raw_model_output
+b45265bc99a7,2026-09-06 01:56:23,2026-09-03T09:59:00-04:00,ism_services_index,demand_sectoral_activity,2026-08,2026-09-03,ism_svc_2026-08_pit,claude-code-agent-pit,54.5,0.62,medium,54.3,54.1,55.4,4,5,"The ISM services employment sub-index: the ADP August print of just 38,000 jobs (with professional/business services shedding 16,000) could drag the employment component well below July's already-contractionary 47.4%, pulling the composite headline below consensus — or, if Continuum Economics is correct that employment corrects higher to ~49.0%, the drag would be minimal and the headline would drift to 54.5.",0,0,https://www.gate.com/news/detail/us-services-pmi-hits-554-in-august-beats-forecast-at-543-23988737 | https://www.fxstreet.com/news/ism-services-pmi-preview-us-service-sector-expected-to-expand-in-august-202609030900 | https://www.tmgm.com/eng/analysis/market-news/article/ism-services-pmi-preview-us-service-sector-expected-to-expand-in-august-202609030900 | https://th.octabroker.com/markets/news/view/1259358/ | https://www.mitrade.com/au/insights/news/live-news/article-6-2056007-20260903 | https://www.bloomberg.com/news/articles/2026-09-03/us-service-sector-picks-up-price-gauge-jumps-to-four-year-high | https://www.ftportfolios.com/Commentary/EconomicResearch/2026/9/3/the-ism-non-manufacturing-index-rose-to-55.4-in-august | https://www.ismworld.org/supply-management-news-and-reports/news-publications/inside-supply-management-magazine/blog/2026/2026-09/ism-pmi-reports-roundup-august-2026-services/,True,point=54.5 p_above=0.62 conf=medium args_up=4 args_down=5,"{
+  ""indicator"": ""ism_services_index"",
+  ""target_month"": ""2026-08"",
+  ""release_date"": ""2026-09-03"",
+  ""point_estimate"": 54.5,
+  ""p_above_consensus"": 0.62,
+  ""confidence"": ""medium"",
+  ""arguments_for_higher"": [
+    {
+      ""claim"": ""S&P Global flash US Services PMI surged to 56.8 in August 2026 (a 20-month high, up from 54.6 in July), signaling strong services-sector expansion momentum heading into the ISM release."",
+      ""direction"": ""up"",
+      ""source_name"": ""S&P Global / Reuters"",
+      ""source_url"": ""https://www.reuters.com/business/us-service-sector-fuels-acceleration-business-activity-sp-global-says-2026-08-21/"",
+      ""published_date"": ""2026-08-21"",
+      ""weight"": 0.35
+    },
+    {
+      ""claim"": ""Continuum Economics, in its pre-release preview, explicitly forecasts an August ISM Services reading of 54.5, above the market consensus of 54.3, citing the index remaining 'slightly firmer within a tight range.'"",
+      ""direction"": ""up"",
+      ""source_name"": ""Continuum Economics"",
+      ""source_url"": ""https://continuumeconomics.com/a/4f06671a/preview-due-september-3-us-august-ism-services-slightly-firmer-within-a-tight-range"",
+      ""published_date"": ""2026-09-02"",
+      ""weight"": 0.40
+    },
+    {
+      ""claim"": ""July 2026 ISM services new orders (57.2%) and business activity (59.1%) both printed well above the headline index, providing strong positive carry-over demand momentum into August."",
+      ""direction"": ""up"",
+      ""source_name"": ""PR Newswire / ISM"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/services-pmi-at-54-1-july-2026-ism-services-pmi-report-302843134.html"",
+      ""published_date"": ""2026-08-05"",
+      ""weight"": 0.30
+    },
+    {
+      ""claim"": ""S&P Global estimates Q3 2026 annualized GDP growth near 3.0%, nearly double Q2's 1.5% pace, indicating broad economic resilience that is typically consistent with above-trend ISM services readings."",
+      ""direction"": ""up"",
+      ""source_name"": ""S&P Global / EdgeX"",
+      ""source_url"": ""https://pro.edgex.exchange/en-US/news/article/us-flash-pmi-august-services-beat-manufacturing-slips"",
+      ""published_date"": ""2026-08-21"",
+      ""weight"": 0.20
+    }
+  ],
+  ""arguments_for_lower"": [
+    {
+      ""claim"": ""ADP private-sector employment rose by only 38,000 in August 2026 (slowest since January), with professional and business services shedding 16,000 jobs, pointing to a continued or deepening contraction in the already-depressed ISM services employment sub-index (47.4% in July)."",
+      ""direction"": ""down"",
+      ""source_name"": ""ADP Research"",
+      ""source_url"": ""https://mediacenter.adp.com/2026-09-02-ADP-National-Employment-Report-Private-Sector-Employment-Increased-by-38,000-Jobs-in-August"",
+      ""published_date"": ""2026-09-02"",
+      ""weight"": 0.40
+    },
+    {
+      ""claim"": ""Regional Fed services surveys from the Philadelphia, Richmond, and Empire State Feds all slowed in August 2026, providing a cross-check that partially offsets the bullish signal from the S&P Global flash PMI."",
+      ""direction"": ""down"",
+      ""source_name"": ""Continuum Economics"",
+      ""source_url"": ""https://continuumeconomics.com/a/4f06671a/preview-due-september-3-us-august-ism-services-slightly-firmer-within-a-tight-range"",
+      ""published_date"": ""2026-09-02"",
+      ""weight"": 0.30
+    },
+    {
+      ""claim"": ""The S&P Global services PMI is 'not well correlated with ISM services' per Continuum Economics, meaning the flash PMI surge to 56.8 has limited predictive power for the ISM headline reading."",
+      ""direction"": ""down"",
+      ""source_name"": ""Continuum Economics"",
+      ""source_url"": ""https://continuumeconomics.com/a/4f06671a/preview-due-september-3-us-august-ism-services-slightly-firmer-within-a-tight-range"",
+      ""published_date"": ""2026-09-02"",
+      ""weight"": 0.25
+    },
+    {
+      ""claim"": ""The ISM services prices paid index re-accelerated to 70.3% in July 2026 (its highest in years), creating margin compression pressures for service-sector businesses that could dampen activity and new orders in August."",
+      ""direction"": ""down"",
+      ""source_name"": ""CentsIQ"",
+      ""source_url"": ""https://centsiq.com/news/ism-services-pmi-july-2026-prices-margins/"",
+      ""published_date"": ""2026-08-07"",
+      ""weight"": 0.20
+    },
+    {
+      ""claim"": ""The S&P Global flash manufacturing PMI fell to a 13-month low of 53.2 in August, driven in part by supply disruptions linked to the US-led conflict with Iran, a shock that could spill into services-sector supply chains and cost structures."",
+      ""direction"": ""down"",
+      ""source_name"": ""S&P Global / Reuters"",
+      ""source_url"": ""https://hk.marketscreener.com/news/us-service-sector-fuels-acceleration-in-business-activity-s-p-global-says-ce7858dada8afe2c"",
+      ""published_date"": ""2026-08-21"",
+      ""weight"": 0.15
+    }
+  ],
+  ""key_uncertainty"": ""The ISM services employment sub-index: the ADP August print of just 38,000 jobs (with professional/business services shedding 16,000) could drag the employment component well below July's already-contractionary 47.4%, pulling the composite headline below consensus — or, if Continuum Economics is correct that employment corrects higher to ~49.0%, the drag would be minimal and the headline would drift to 54.5."",
+  ""discarded_after_cutoff"": [
+    ""https://www.gate.com/news/detail/us-services-pmi-hits-554-in-august-beats-forecast-at-543-23988737"",
+    ""https://www.fxstreet.com/news/ism-services-pmi-preview-us-service-sector-expected-to-expand-in-august-202609030900"",
+    ""https://www.tmgm.com/eng/analysis/market-news/article/ism-services-pmi-preview-us-service-sector-expected-to-expand-in-august-202609030900"",
+    ""https://th.octabroker.com/markets/news/view/1259358/"",
+    ""https://www.mitrade.com/au/insights/news/live-news/article-6-2056007-20260903"",
+    ""https://www.bloomberg.com/news/articles/2026-09-03/us-service-sector-picks-up-price-gauge-jumps-to-four-year-high"",
+    ""https://www.ftportfolios.com/Commentary/EconomicResearch/2026/9/3/the-ism-non-manufacturing-index-rose-to-55.4-in-august"",
+    ""https://www.ismworld.org/supply-management-news-and-reports/news-publications/inside-supply-management-magazine/blog/2026/2026-09/ism-pmi-reports-roundup-august-2026-services/""
+  ]
+}"

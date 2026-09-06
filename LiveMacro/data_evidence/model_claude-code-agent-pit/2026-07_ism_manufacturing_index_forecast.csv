@@ -1,0 +1,112 @@
+run_id,timestamp_local,as_of,indicator,variable_group,target_month,release_date,job_id,model,point_estimate,p_above_consensus,confidence,consensus,previous,actual,n_args_up,n_args_down,key_uncertainty,leak_count,undated_sources,discarded_after_cutoff,parsed_ok,parsed_notes,raw_model_output
+fa4981c9b5de,2026-09-06 01:45:10,2026-08-03T09:59:00-04:00,ism_manufacturing_index,core_macroeconomic_conditions,2026-07,2026-08-03,ism_mfg_2026-07_pit,claude-code-agent-pit,55.0,0.7,medium,54.0,53.3,55.6,6,5,"Whether the S&P Global Flash Manufacturing PMI (53.8, a slight miss) or the massively positive Philly Fed and Empire State regional surveys are the better real-time predictor of the national ISM headline for July — if the ISM-weighted Philly equivalent of 58.1 is representative, the ISM will far exceed consensus, but if the S&P Global signal dominates (as it sometimes does), the ISM could land near or below 54.0.",0,0,https://investinglive.com/news/s-p-global-manufacturing-pmi-final-for-july-53-9-vs-53-8-preliminary/ | https://www.ismworld.org/supply-management-news-and-reports/news-publications/inside-supply-management-magazine/blog/2026/2026-08/ism-pmi-reports-roundup-july-2026-manufacturing/ | https://www.supplychaindive.com/news/us-manufacturing-expands-for-seventh-month-in-a-row-ism/826851/ | https://www.manufacturingdive.com/news/us-manufacturing-expands-july-pmi-ism/826827/ | https://bluewaterhealthyliving.com/news/business-and-economy/us-manufacturing-activity-jumps-to-more-than-four-year-high-in-july/ | https://www.ftportfolios.com/Commentary/EconomicResearch/2026/8/3/the-ism-manufacturing-index-increased-to-55.6-in-july | https://www.dallasfed.org/research/surveys/tmos/2026/2608/2608summ | https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/MBOS/2026/bos0726.pdf,True,point=55.0 p_above=0.7 conf=medium args_up=6 args_down=5,"{
+  ""indicator"": ""ism_manufacturing_index"",
+  ""target_month"": ""2026-07"",
+  ""release_date"": ""2026-08-03"",
+  ""point_estimate"": 55.0,
+  ""p_above_consensus"": 0.70,
+  ""confidence"": ""medium"",
+  ""arguments_for_higher"": [
+    {
+      ""claim"": ""The Philadelphia Fed's July Manufacturing Business Outlook Survey produced an ISM Manufacturing-weighted PMI equivalent of 58.1 (vs. 53.1 prior), the best since January 2025, with the headline General Business Conditions index surging 31+ points to a 56-month high of 41.4 against a consensus of just 12.5."",
+      ""direction"": ""up"",
+      ""source_name"": ""MNI Markets"",
+      ""source_url"": ""https://www.mnimarkets.com/articles/strongest-philly-fed-manufacturing-in-4-years-with-good-details-1784209856902"",
+      ""published_date"": ""2026-07-16"",
+      ""weight"": 0.75
+    },
+    {
+      ""claim"": ""The Philly Fed July New Orders index rose to 37.0 from 27.3, a 55-month high, and Shipments climbed to 33.7 from 14.9, the second-highest in 49 months, indicating broad acceleration in demand and throughput."",
+      ""direction"": ""up"",
+      ""source_name"": ""State Economic Watch"",
+      ""source_url"": ""https://www.stateeconomicwatch.com/2026/07/philly-fed-manufacturing-index-spikes.html"",
+      ""published_date"": ""2026-07-16"",
+      ""weight"": 0.60
+    },
+    {
+      ""claim"": ""The Empire State Manufacturing Index for July printed at 15.6, nearly double the consensus estimate of 8.8, signaling significantly above-trend expansion in New York's factory sector."",
+      ""direction"": ""up"",
+      ""source_name"": ""CryptoBriefing"",
+      ""source_url"": ""https://cryptobriefing.com/empire-state-factory-index-july-exceeds-estimates/"",
+      ""published_date"": ""2026-07-15"",
+      ""weight"": 0.50
+    },
+    {
+      ""claim"": ""The Dallas Fed Texas Manufacturing Outlook Survey showed the production index surging 6 points to 10.1 in July (from 4.1 in June) and new orders jumping to 6.4 from 2.3, with overall business activity turning positive to 1.3 from zero."",
+      ""direction"": ""up"",
+      ""source_name"": ""Federal Reserve Bank of Dallas"",
+      ""source_url"": ""https://www.dallasfed.org/research/surveys/tmos/2026/2607"",
+      ""published_date"": ""2026-07-27"",
+      ""weight"": 0.40
+    },
+    {
+      ""claim"": ""The June ISM Customers' Inventories Index remained deeply in 'too low' territory at 42.3%, a historically reliable leading indicator of future production and new-order strength that typically pulls the headline PMI higher in subsequent months."",
+      ""direction"": ""up"",
+      ""source_name"": ""PR Newswire / ISM"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/manufacturing-pmi-at-53-3-june-2026-ism-manufacturing-pmi-report-302814991.html"",
+      ""published_date"": ""2026-07-01"",
+      ""weight"": 0.35
+    },
+    {
+      ""claim"": ""The Kansas City Fed composite manufacturing index remained solidly positive at 9 in July (modestly below June's 11 but above May's 8), with future activity expectations rising slightly, consistent with continued national manufacturing expansion."",
+      ""direction"": ""up"",
+      ""source_name"": ""Federal Reserve Bank of Kansas City"",
+      ""source_url"": ""https://www.kansascityfed.org/surveys/manufacturing-survey/tenth-district-manufacturing-growth-in-activity-remained-steady-july-2026/"",
+      ""published_date"": ""2026-07-23"",
+      ""weight"": 0.25
+    }
+  ],
+  ""arguments_for_lower"": [
+    {
+      ""claim"": ""The S&P Global Flash US Manufacturing PMI for July edged down to 53.8 from 53.9, a four-month low and below the consensus expectation of 54.3–54.5, with the Manufacturing Output Index falling sharply from 56.2 to 53.6 as earlier inventory-driven strength faded."",
+      ""direction"": ""down"",
+      ""source_name"": ""ActionForex / S&P Global"",
+      ""source_url"": ""https://www.actionforex.com/live-comments/648422-us-pmi-hits-eight-month-highyet-rising-costs-and-supply-delays-raise-caution/"",
+      ""published_date"": ""2026-07-24"",
+      ""weight"": 0.50
+    },
+    {
+      ""claim"": ""S&P Global's chief economist warned that manufacturers reported intensifying supply-chain delays and a renewed increase in input prices in July, with escalating Middle East tensions likely to aggravate disruptions and raise downside risks to growth."",
+      ""direction"": ""down"",
+      ""source_name"": ""ActionForex / S&P Global"",
+      ""source_url"": ""https://www.actionforex.com/live-comments/648422-us-pmi-hits-eight-month-highyet-rising-costs-and-supply-delays-raise-caution/"",
+      ""published_date"": ""2026-07-24"",
+      ""weight"": 0.35
+    },
+    {
+      ""claim"": ""The Richmond Fed's Fifth District Manufacturing Activity index rose to only 5 in July, positive for a fourth straight month but falling short of expectations, with new orders softening — a modest regional counterpoint to the Philly and Empire State beats."",
+      ""direction"": ""down"",
+      ""source_name"": ""TickerSpark / Richmond Fed"",
+      ""source_url"": ""https://tickerspark.ai/market/richmond-fed-factory-index-misses-forecast-as-growth-slows-1785278299493"",
+      ""published_date"": ""2026-07-28"",
+      ""weight"": 0.20
+    },
+    {
+      ""claim"": ""The June ISM New Export Orders Index fell back into contraction at 48.5% (from 50.6% in May), reflecting ongoing global demand headwinds and Iran-related disruptions cited by 31% of panelists, providing a drag that may persist into July."",
+      ""direction"": ""down"",
+      ""source_name"": ""PR Newswire / ISM"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/manufacturing-pmi-at-53-3-june-2026-ism-manufacturing-pmi-report-302814991.html"",
+      ""published_date"": ""2026-07-01"",
+      ""weight"": 0.20
+    },
+    {
+      ""claim"": ""The Philly Fed's 6-month business conditions outlook fell 16 points to a 6-month low of 34.4 and capex plans pulled back to 30.1 from 41.2, cautioning that forward-looking sentiment — a driver of future ISM readings — softened even as current conditions spiked."",
+      ""direction"": ""down"",
+      ""source_name"": ""MNI Markets"",
+      ""source_url"": ""https://www.mnimarkets.com/articles/strongest-philly-fed-manufacturing-in-4-years-with-good-details-1784209856902"",
+      ""published_date"": ""2026-07-16"",
+      ""weight"": 0.20
+    }
+  ],
+  ""key_uncertainty"": ""Whether the S&P Global Flash Manufacturing PMI (53.8, a slight miss) or the massively positive Philly Fed and Empire State regional surveys are the better real-time predictor of the national ISM headline for July — if the ISM-weighted Philly equivalent of 58.1 is representative, the ISM will far exceed consensus, but if the S&P Global signal dominates (as it sometimes does), the ISM could land near or below 54.0."",
+  ""discarded_after_cutoff"": [
+    ""https://investinglive.com/news/s-p-global-manufacturing-pmi-final-for-july-53-9-vs-53-8-preliminary/"",
+    ""https://www.ismworld.org/supply-management-news-and-reports/news-publications/inside-supply-management-magazine/blog/2026/2026-08/ism-pmi-reports-roundup-july-2026-manufacturing/"",
+    ""https://www.supplychaindive.com/news/us-manufacturing-expands-for-seventh-month-in-a-row-ism/826851/"",
+    ""https://www.manufacturingdive.com/news/us-manufacturing-expands-july-pmi-ism/826827/"",
+    ""https://bluewaterhealthyliving.com/news/business-and-economy/us-manufacturing-activity-jumps-to-more-than-four-year-high-in-july/"",
+    ""https://www.ftportfolios.com/Commentary/EconomicResearch/2026/8/3/the-ism-manufacturing-index-increased-to-55.6-in-july"",
+    ""https://www.dallasfed.org/research/surveys/tmos/2026/2608/2608summ"",
+    ""https://www.philadelphiafed.org/-/media/FRBP/Assets/Surveys-And-Data/MBOS/2026/bos0726.pdf""
+  ]
+}"

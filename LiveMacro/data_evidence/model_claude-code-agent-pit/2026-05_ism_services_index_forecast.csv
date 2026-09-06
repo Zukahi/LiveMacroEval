@@ -1,0 +1,101 @@
+run_id,timestamp_local,as_of,indicator,variable_group,target_month,release_date,job_id,model,point_estimate,p_above_consensus,confidence,consensus,previous,actual,n_args_up,n_args_down,key_uncertainty,leak_count,undated_sources,discarded_after_cutoff,parsed_ok,parsed_notes,raw_model_output
+67964a19a3a0,2026-09-06 01:48:39,2026-06-03T09:59:00-04:00,ism_services_index,demand_sectoral_activity,2026-05,2026-06-03,ism_svc_2026-05_pit,claude-code-agent-pit,53.4,0.4,medium,53.7,53.6,54.5,4,5,Whether the ISM New Orders sub-index rebounds from April's sharp 7.1 pp drop (back toward its 12-month average of ~53.9%) or continues to soften under consumer pullback — new orders is the single sub-index with the most potential to swing the headline in either direction.,0,0,https://www.fxstreet.com/news/ism-services-pmi-consensus-calls-for-gently-dwindling-economic-expansion-202606030900 | https://healthtechnologynet.com/2026/06/03/services-pmi-at-54-5-may-2026-ism-services-pmi-report/ | https://www.tmcnet.com/usubmit/-services-pmireg-545-may-2026-ismreg-services-pmireg-/2026/06/03/10393866.htm | https://www.fxstreet.com/analysis/ism-services-pmi-consensus-calls-for-gently-dwindling-economic-expansion-202606030900 | https://www.narrowit.com/news/ism-services-pmi-may-2026-54-5-beats-forecast-2026-06-03 | https://macenews.com/us-ism-services-sector-activity-picks-up-in-may-but-faces-mideast-conflict-impact-of-higher-costs-of-fuels-other-oil-products-employment-remains-weak/ | https://www.tradingview.com/news/macenews:fbfcd2299094b:0-us-s-p-pmi-services-index-50-7-in-may-final-vs-50-9-in-may-flash-51-0-in-april/ | https://sa.marketscreener.com/news/may-s-p-global-us-final-services-pmi-50-7-vs-expected-51-0-flash-50-9-april-51-0-ce7f5ddfde89f020 | https://tradingeconomics.com/united-states/services-pmi/news/556199 | https://www.pmi.spglobal.com/Public/Home/PressRelease/f8f0ceeee5094138b0adc122f183f8a9 | https://www.bls.gov/news.release/archives/empsit_06052026.htm | https://www.federalreserve.gov/monetarypolicy/beigebook202605-summary.htm | https://srnnews.com/us-private-payrolls-increase-in-may-adp-says/,True,point=53.4 p_above=0.4 conf=medium args_up=4 args_down=5,"{
+  ""indicator"": ""ism_services_index"",
+  ""target_month"": ""2026-05"",
+  ""release_date"": ""2026-06-03"",
+  ""point_estimate"": 53.4,
+  ""p_above_consensus"": 0.40,
+  ""confidence"": ""medium"",
+  ""arguments_for_higher"": [
+    {
+      ""claim"": ""The ISM Services Supplier Deliveries Index hit 56.8% in April — 3.9 pp above its 12-month average — and the ongoing Strait of Hormuz closure is likely to keep delivery times stretched in May, mechanically supporting the composite index (slower deliveries count as expansionary in ISM methodology)."",
+      ""direction"": ""up"",
+      ""source_name"": ""Institute for Supply Management via PR Newswire"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/services-pmi-at-53-6-april-2026-ism-services-pmi-report-302761674.html"",
+      ""published_date"": ""2026-05-05"",
+      ""weight"": 0.25
+    },
+    {
+      ""claim"": ""Wood Mackenzie warned on May 20 that the Hormuz closure 'risks the greatest global energy supply shock in decades,' with oil potentially hitting $200/bbl — prolonged disruption would keep Supplier Deliveries and Prices sub-indices at elevated readings that inflate the ISM composite."",
+      ""direction"": ""up"",
+      ""source_name"": ""Wood Mackenzie"",
+      ""source_url"": ""https://www.woodmac.com/press-releases/strait-of-hormuz-closure-risks-greatest-global-energy-supply-shock-in-decades"",
+      ""published_date"": ""2026-05-20"",
+      ""weight"": 0.20
+    },
+    {
+      ""claim"": ""The ISM Business Activity sub-index surged to 55.9% in April (up 2 pp from March), and the Backlog of Orders held in expansion at 53% for a third straight month — well above its 12-month average of 46.4% — indicating a pipeline of demand that could sustain headline activity into May."",
+      ""direction"": ""up"",
+      ""source_name"": ""Institute for Supply Management via PR Newswire"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/services-pmi-at-53-6-april-2026-ism-services-pmi-report-302761674.html"",
+      ""published_date"": ""2026-05-05"",
+      ""weight"": 0.18
+    },
+    {
+      ""claim"": ""The ISM Services 12-month average has risen four consecutive months (from 51.7% in December 2025 to 52.5% in April), reflecting a broadening uptrend in services activity that provides upward momentum for May."",
+      ""direction"": ""up"",
+      ""source_name"": ""Institute for Supply Management via PR Newswire"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/services-pmi-at-53-6-april-2026-ism-services-pmi-report-302761674.html"",
+      ""published_date"": ""2026-05-05"",
+      ""weight"": 0.12
+    }
+  ],
+  ""arguments_for_lower"": [
+    {
+      ""claim"": ""The S&P Global Flash US Services PMI fell to 50.9 in May (vs 51.0 prior and 51.2 estimate), with S&P Global explicitly noting services are 'on course for its weakest calendar quarter since late 2023' and new business inflows rose only modestly — this is the strongest concurrent leading indicator available and points to deceleration."",
+      ""direction"": ""down"",
+      ""source_name"": ""S&P Global / FXStreet"",
+      ""source_url"": ""https://www.fxstreet.com/news/us-sp-global-pmi-expected-to-show-resilient-business-activity-in-may-202605210900"",
+      ""published_date"": ""2026-05-21"",
+      ""weight"": 0.35
+    },
+    {
+      ""claim"": ""The Conference Board Consumer Confidence Index dipped to 93.1 in May (from 93.8 revised), with the Present Situation Index dropping 3.2 points to 121.2 and two-thirds of consumers cutting back on spending — softening demand is a direct headwind to services activity."",
+      ""direction"": ""down"",
+      ""source_name"": ""The Conference Board via PR Newswire"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/us-consumer-confidence-edged-downward-in-may-302781849.html"",
+      ""published_date"": ""2026-05-26"",
+      ""weight"": 0.25
+    },
+    {
+      ""claim"": ""The ISM Services Employment Index was 48% in April — its second consecutive month of contraction — signaling ongoing labor market weakness in services that would weigh on output and new business."",
+      ""direction"": ""down"",
+      ""source_name"": ""Institute for Supply Management via PR Newswire"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/services-pmi-at-53-6-april-2026-ism-services-pmi-report-302761674.html"",
+      ""published_date"": ""2026-05-05"",
+      ""weight"": 0.20
+    },
+    {
+      ""claim"": ""The ISM New Orders Index plunged 7.1 pp in April to 53.5%, suggesting the pre-price-shock order pull-forward in March was a one-off; any further normalization of new orders in May would drag the headline lower."",
+      ""direction"": ""down"",
+      ""source_name"": ""Institute for Supply Management via PR Newswire"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/services-pmi-at-53-6-april-2026-ism-services-pmi-report-302761674.html"",
+      ""published_date"": ""2026-05-05"",
+      ""weight"": 0.18
+    },
+    {
+      ""claim"": ""The ISM April report noted that Retail Trade was one of only three contracting industries, and a May 26 survey found two-thirds of Americans are cutting back spending amid Middle East fuel price shocks — consumer-facing services face a direct demand headwind into May."",
+      ""direction"": ""down"",
+      ""source_name"": ""AP News"",
+      ""source_url"": ""https://apnews.com/article/confidence-inflation-economy-4f681cecfa63fe251f5bb12bb4b949c6"",
+      ""published_date"": ""2026-05-26"",
+      ""weight"": 0.15
+    }
+  ],
+  ""key_uncertainty"": ""Whether the ISM New Orders sub-index rebounds from April's sharp 7.1 pp drop (back toward its 12-month average of ~53.9%) or continues to soften under consumer pullback — new orders is the single sub-index with the most potential to swing the headline in either direction."",
+  ""discarded_after_cutoff"": [
+    ""https://www.fxstreet.com/news/ism-services-pmi-consensus-calls-for-gently-dwindling-economic-expansion-202606030900"",
+    ""https://healthtechnologynet.com/2026/06/03/services-pmi-at-54-5-may-2026-ism-services-pmi-report/"",
+    ""https://www.tmcnet.com/usubmit/-services-pmireg-545-may-2026-ismreg-services-pmireg-/2026/06/03/10393866.htm"",
+    ""https://www.fxstreet.com/analysis/ism-services-pmi-consensus-calls-for-gently-dwindling-economic-expansion-202606030900"",
+    ""https://www.narrowit.com/news/ism-services-pmi-may-2026-54-5-beats-forecast-2026-06-03"",
+    ""https://macenews.com/us-ism-services-sector-activity-picks-up-in-may-but-faces-mideast-conflict-impact-of-higher-costs-of-fuels-other-oil-products-employment-remains-weak/"",
+    ""https://www.tradingview.com/news/macenews:fbfcd2299094b:0-us-s-p-pmi-services-index-50-7-in-may-final-vs-50-9-in-may-flash-51-0-in-april/"",
+    ""https://sa.marketscreener.com/news/may-s-p-global-us-final-services-pmi-50-7-vs-expected-51-0-flash-50-9-april-51-0-ce7f5ddfde89f020"",
+    ""https://tradingeconomics.com/united-states/services-pmi/news/556199"",
+    ""https://www.pmi.spglobal.com/Public/Home/PressRelease/f8f0ceeee5094138b0adc122f183f8a9"",
+    ""https://www.bls.gov/news.release/archives/empsit_06052026.htm"",
+    ""https://www.federalreserve.gov/monetarypolicy/beigebook202605-summary.htm"",
+    ""https://srnnews.com/us-private-payrolls-increase-in-may-adp-says/""
+  ]
+}"

@@ -1,0 +1,116 @@
+run_id,timestamp_local,as_of,indicator,variable_group,target_month,release_date,job_id,model,point_estimate,p_above_consensus,confidence,consensus,previous,actual,n_args_up,n_args_down,key_uncertainty,leak_count,undated_sources,discarded_after_cutoff,parsed_ok,parsed_notes,raw_model_output
+146b1bce5c56,2026-09-06 01:51:20,2026-07-06T09:59:00-04:00,ism_services_index,demand_sectoral_activity,2026-06,2026-07-06,ism_svc_2026-06_pit,claude-code-agent-pit,54.2,0.52,medium,54.0,54.5,54.0,6,6,"Whether the ISM Employment sub-index recovers from its third consecutive contraction—if employment bounces back toward 50 as Continuum Economics expects (48.5), the composite holds near 54.5; if employment deteriorates further, the composite could fall toward or below consensus.",0,0,https://www.morningstar.com/news/pr-newswire/20260706la97363/services-pmi-at-54-june-2026-ism-services-pmi-report | https://karsane.com/article/us-services-pmi-june-2026-output-up-jobs-down | https://www.mnimarkets.com/articles/downward-revisions-limit-june-pmi-improvement-1783346283463 | https://polymarket.copilot.markets/event/ism-services-pmi-june-2026,True,point=54.2 p_above=0.52 conf=medium args_up=6 args_down=6,"{
+  ""indicator"": ""ism_services_index"",
+  ""target_month"": ""2026-06"",
+  ""release_date"": ""2026-07-06"",
+  ""point_estimate"": 54.2,
+  ""p_above_consensus"": 0.52,
+  ""confidence"": ""medium"",
+  ""arguments_for_higher"": [
+    {
+      ""claim"": ""Continuum Economics explicitly forecasts June ISM Services at 54.5 (unchanged from May, above the 54.0 consensus), citing supportive seasonal adjustments, the World Cup hospitality boost, and gasoline price relief as factors preventing a post-May correction."",
+      ""direction"": ""up"",
+      ""source_name"": ""Continuum Economics"",
+      ""source_url"": ""https://continuumeconomics.com/a/b3897c92/preview-due-july-6-us-june-ism-services-sustaining-a-may-improvement"",
+      ""published_date"": ""2026-07-02"",
+      ""weight"": 0.35
+    },
+    {
+      ""claim"": ""May 2026 ISM Services Business Activity registered 57.7% (second-highest since October 2024) and New Orders surged to 57.3% (3.8 pp above April), providing strong forward momentum into June."",
+      ""direction"": ""up"",
+      ""source_name"": ""Institute for Supply Management / PR Newswire"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/services-pmi-at-54-5-may-2026-ism-services-pmi-report-302789082.html"",
+      ""published_date"": ""2026-06-03"",
+      ""weight"": 0.25
+    },
+    {
+      ""claim"": ""US gasoline prices dipped below $4 per gallon for the first time since March 2026, reducing household cost pressures and freeing up spending on services."",
+      ""direction"": ""up"",
+      ""source_name"": ""AP News"",
+      ""source_url"": ""https://apnews.com/article/gas-iran-trump-aaa-72d8e7d7c9dcd0795c37a51864fce8a6"",
+      ""published_date"": ""2026-06-18"",
+      ""weight"": 0.15
+    },
+    {
+      ""claim"": ""University of Michigan final Consumer Sentiment Index rose nearly 11% in June to 49.5 from 44.8, partly driven by lower gas prices, creating a more favorable backdrop for services demand."",
+      ""direction"": ""up"",
+      ""source_name"": ""The Epoch Times"",
+      ""source_url"": ""https://www.theepochtimes.com/business/gas-prices-sliding-below-4-lift-us-consumer-sentiment-in-june-6053838"",
+      ""published_date"": ""2026-06-26"",
+      ""weight"": 0.12
+    },
+    {
+      ""claim"": ""US retail sales rose a strong 0.9% in May, above expectations, demonstrating resilient consumer spending that typically sustains services-sector activity in the following month."",
+      ""direction"": ""up"",
+      ""source_name"": ""BNN Bloomberg"",
+      ""source_url"": ""https://www.bnnbloomberg.ca/business/economics/2026/06/17/us-retail-sales-up-a-strong-09-in-may-underscoring-the-resilience-of-the-american-consumer/"",
+      ""published_date"": ""2026-06-17"",
+      ""weight"": 0.10
+    },
+    {
+      ""claim"": ""S&P Global flash US Services PMI improved to a four-month high of 51.3 in June from 50.7 in May, and the June S&P Global report cited demand linked to the FIFA World Cup as a supportive factor."",
+      ""direction"": ""up"",
+      ""source_name"": ""Kalkine"",
+      ""source_url"": ""https://kalkine.com/news/general-news/us-services-pmi-rises-to-513-in-june-2026-but-high-prices-and-war-uncertainty-weigh-on-sentiment"",
+      ""published_date"": ""2026-06-23"",
+      ""weight"": 0.10
+    }
+  ],
+  ""arguments_for_lower"": [
+    {
+      ""claim"": ""ISM Services Employment sub-index contracted for a third consecutive month at 47.9% in May (below its 12-month average), with ISM respondents citing widespread hiring freezes and non-backfilling of vacated positions, a persistent drag on the composite."",
+      ""direction"": ""down"",
+      ""source_name"": ""Institute for Supply Management / PR Newswire"",
+      ""source_url"": ""https://www.prnewswire.com/news-releases/services-pmi-at-54-5-may-2026-ism-services-pmi-report-302789082.html"",
+      ""published_date"": ""2026-06-03"",
+      ""weight"": 0.22
+    },
+    {
+      ""claim"": ""S&P Global flash services PMI for June (51.3) remains deeply below ISM Services levels, employment fell for a second consecutive month in the S&P survey, and business expectations remain well below long-run averages—signalling a fragile, narrow expansion."",
+      ""direction"": ""down"",
+      ""source_name"": ""Kalkine"",
+      ""source_url"": ""https://kalkine.com/news/general-news/us-services-pmi-rises-to-513-in-june-2026-but-high-prices-and-war-uncertainty-weigh-on-sentiment"",
+      ""published_date"": ""2026-06-23"",
+      ""weight"": 0.20
+    },
+    {
+      ""claim"": ""Services input cost inflation rose to a six-month high and selling price inflation hit an eleven-month high in the June S&P Global survey, while ISM Prices Paid hit 71.3% in May (highest since August 2022), suggesting sustained cost headwinds that could constrain services-sector expansion."",
+      ""direction"": ""down"",
+      ""source_name"": ""Kalkine"",
+      ""source_url"": ""https://kalkine.com/news/general-news/us-services-pmi-rises-to-513-in-june-2026-but-high-prices-and-war-uncertainty-weigh-on-sentiment"",
+      ""published_date"": ""2026-06-23"",
+      ""weight"": 0.18
+    },
+    {
+      ""claim"": ""The Richmond Fed services survey turned marginally negative in June after an improvement in May, while Empire State and Philadelphia Fed services surveys were mixed, providing no clear upside signals from regional data."",
+      ""direction"": ""down"",
+      ""source_name"": ""Continuum Economics"",
+      ""source_url"": ""https://continuumeconomics.com/a/b3897c92/preview-due-july-6-us-june-ism-services-sustaining-a-may-improvement"",
+      ""published_date"": ""2026-07-02"",
+      ""weight"": 0.12
+    },
+    {
+      ""claim"": ""A June 1–15 Gallup poll found two-thirds of Americans report financial hardship from high fuel costs, with gas prices still ~25% above year-ago levels, capping the upside from any pump-price relief on services spending."",
+      ""direction"": ""down"",
+      ""source_name"": ""Gallup"",
+      ""source_url"": ""https://news.gallup.com/poll/711893/gas-prices-straining-americans-finances-travel-plans.aspx"",
+      ""published_date"": ""2026-06-25"",
+      ""weight"": 0.10
+    },
+    {
+      ""claim"": ""Continuum Economics notes May's bounce may have been partly assisted by seasonal adjustments and risks mean-reverting in June, and supplier delivery disruptions tied to the Middle East conflict and tariffs lengthened delivery times further in June."",
+      ""direction"": ""down"",
+      ""source_name"": ""Continuum Economics"",
+      ""source_url"": ""https://continuumeconomics.com/a/b3897c92/preview-due-july-6-us-june-ism-services-sustaining-a-may-improvement"",
+      ""published_date"": ""2026-07-02"",
+      ""weight"": 0.08
+    }
+  ],
+  ""key_uncertainty"": ""Whether the ISM Employment sub-index recovers from its third consecutive contraction—if employment bounces back toward 50 as Continuum Economics expects (48.5), the composite holds near 54.5; if employment deteriorates further, the composite could fall toward or below consensus."",
+  ""discarded_after_cutoff"": [
+    ""https://www.morningstar.com/news/pr-newswire/20260706la97363/services-pmi-at-54-june-2026-ism-services-pmi-report"",
+    ""https://karsane.com/article/us-services-pmi-june-2026-output-up-jobs-down"",
+    ""https://www.mnimarkets.com/articles/downward-revisions-limit-june-pmi-improvement-1783346283463"",
+    ""https://polymarket.copilot.markets/event/ism-services-pmi-june-2026""
+  ]
+}"
