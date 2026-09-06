@@ -42,3 +42,6 @@ Results/benchmark_econ/results_targets_*/
 # Generated figures and diagnostics from the plot scripts
 Results/remove_outlier_and_plot/generated_serverA_serverB/
 Results/remove_outlier_and_plot/outlier_diagnostics_serverA_serverB/
+
+# flock sidecar files from the CSV append helpers
+*.csv.lock
