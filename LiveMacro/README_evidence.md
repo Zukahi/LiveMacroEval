@@ -123,3 +123,38 @@ pipeline runs end to end and that the arguments are real: the model found the ge
 tension in the data — regional Fed surveys at multi-year highs against the S&P Global
 flash PMI at a five-month low — and leaned to the soft side, which is where the print
 landed.
+
+## Filtered vs unfiltered on the same release
+
+`ism_mfg_2026-08_pit` runs the identical job through the point-in-time client. Both runs
+passed the leakage audit; the difference is that the filtered one could not have failed it.
+
+| | unfiltered | point-in-time |
+|---|---|---|
+| point estimate | 55.1 | 55.3 |
+| absolute error | **0.50** | 0.70 |
+| p_above_consensus | 0.45 (correct side) | 0.53 (**wrong side**) |
+| arguments | 5 up / 4 down | 5 up / 5 down |
+| tool calls | 13 | 10 |
+| attempts to reach an unfiltered tool | n/a | 0 |
+
+The filtered run did worse. On a single release that is worth almost nothing — the gap is
+0.2 index points and the sample is one — but it is the honest direction of the result and
+is recorded rather than buried.
+
+Two things the run did show, which do not depend on the sample size:
+
+- **Provider date filters are not sufficient.** Exa returned documents dated 2026-09-01
+  despite an `endPublishedDate` of 13:59Z that day: its filter is date-granular, not
+  time-granular. The local re-check caught them. Redundancy earned its keep on the first
+  live call.
+- **The strict undated rule has a real cost.** `get_contents` refused the S&P Global flash
+  PMI press release because the page carries no publication date — and that release is the
+  single most informative bearish source for this print. The agent recovered it through a
+  dated Reuters write-up, but a cheaper indicator might not have a second route. Per-domain
+  date resolution for known publishers would recover this without weakening the rule.
+
+Source mix also shifts: the unfiltered agent reached newyorkfed.org and ismworld.org
+directly, while the filtered agent leaned on aggregators (MarketScreener, Investinglive)
+that happen to sit in Exa's index. That is a difference in what gets cited, not only in
+how much.
