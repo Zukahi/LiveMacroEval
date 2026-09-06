@@ -212,30 +212,38 @@ def _get_agent_timeout_secs():
     return max(timeout_secs, 1.0)
 
 
-async def _run_agent(system_msg, user_msg):
+# Default agent instructions: the original key=value nowcast contract. Callers that
+# need a different output contract (e.g. the evidence mode's JSON) pass their own via
+# generate(..., agent_instructions=...); leaving it unset preserves prior behaviour.
+DEFAULT_AGENT_INSTRUCTIONS = (
+    "AGENT INSTRUCTIONS:\n"
+    "You are an autonomous macro forecasting agent. Follow these steps:\n"
+    "1. Use only the tools allowed in this run. Use WebSearch and WebFetch to find "
+    "the LATEST data from official or otherwise reliable public sources.\n"
+    "2. If a source returns an error or repeated timeouts, do not keep retrying "
+    "the same source. Switch promptly to another official or reliable public "
+    "source.\n"
+    "3. The financial-analysis plugin and its MCP tools are enabled and can be used "
+    "if they are useful for relevant data, context, or cross-checks.\n"
+    "4. Do not request, call, or rely on Bash, file-edit, or local filesystem "
+    "tools. If a source is inaccessible with the allowed tools, continue with the "
+    "best accessible source instead of attempting other tools.\n"
+    "5. After gathering all data, produce your output in the EXACT format specified — "
+    "a single line of space-separated key=value pairs. No extra text.\n"
+    "6. The LAST line of your response MUST be the key=value output line."
+)
+
+
+async def _run_agent(system_msg, user_msg, agent_instructions=None):
     """
     Run the Claude Agent SDK query (query + ClaudeAgentOptions + async for).
     """
 
-    # Build the agent prompt: system instructions + user task
+    # Build the agent prompt: system instructions + user task + output contract
     prompt = (
         f"{system_msg}\n\n"
         f"{user_msg}\n\n"
-        "AGENT INSTRUCTIONS:\n"
-        "You are an autonomous macro forecasting agent. Follow these steps:\n"
-        "1. Use only the tools allowed in this run. Use WebSearch and WebFetch to find "
-        "the LATEST data from official or otherwise reliable public sources.\n"
-        "2. If a source returns an error or repeated timeouts, do not keep retrying "
-        "the same source. Switch promptly to another official or reliable public "
-        "source.\n"
-        "3. The financial-analysis plugin and its MCP tools are enabled and can be used "
-        "if they are useful for relevant data, context, or cross-checks.\n"
-        "4. Do not request, call, or rely on Bash, file-edit, or local filesystem "
-        "tools. If a source is inaccessible with the allowed tools, continue with the "
-        "best accessible source instead of attempting other tools.\n"
-        "5. After gathering all data, produce your output in the EXACT format specified — "
-        "a single line of space-separated key=value pairs. No extra text.\n"
-        "6. The LAST line of your response MUST be the key=value output line."
+        f"{agent_instructions or DEFAULT_AGENT_INSTRUCTIONS}"
     )
 
     result_text = ""
@@ -362,16 +370,19 @@ async def _run_agent(system_msg, user_msg):
     return result_text
 
 
-def generate(system_msg, user_msg):
+def generate(system_msg, user_msg, agent_instructions=None):
     """
     Call Claude Code Agent for macro forecasting.
 
     Interface matches other LLM clients:
         generate(system_msg, user_msg) -> (text, citations)
+
+    agent_instructions overrides the trailing output-contract block. Omit it to keep
+    the original single-line key=value contract.
     """
     logger.info("Calling Claude Code Agent model=%s (%s) ...", DISPLAY_NAME, MODEL_ID)
 
-    result = asyncio.run(_run_agent(system_msg, user_msg))
+    result = asyncio.run(_run_agent(system_msg, user_msg, agent_instructions=agent_instructions))
 
     if not result:
         raise RuntimeError("Claude Code Agent returned empty result")
